@@ -92,11 +92,11 @@ $app->post('/giftbasket/webhook/order_create', function (Request $request) use($
   if ($webhookVerified) { 
     $shop = $request->headers->get('HTTP_X_SHOPIFY_SHOP_DOMAIN');
     
-    if (isset($app['session']->get('accessToken'))) {
+    if ($app['session']->get('accessToken') !== null) {
   
       # parse the request body as JSON data
       $jsonData = json_decode($data);
-      $lineItems = $jsonData['line_items']
+      $lineItems = $jsonData['line_items'];
 
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_HTTPHEADER, array(
